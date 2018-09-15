@@ -38,7 +38,7 @@ exec "{2}/hwsolvers/scripts/optistruct.bat" \
 "{3}.fem" &
 *quit 1 '''.format(original_hm, '\n'.join(makro), path_hw, path_temp)
    
-    with open ('nonDesign.tcl' , 'w') as ofile:
+    with open ('makro.tcl' , 'w') as ofile:
         print(optistruct, file=ofile)
 
 
@@ -51,10 +51,10 @@ exec "{2}/hwsolvers/scripts/optistruct.bat" \
         
     # In der Studentenversion ist eine konsolenfreie Durchführng nicht möglich
     # Python 3.4 verwendet den den Syntax subprocess.run
-    subprocess.call('{}/hw/bin/win64/hw.exe /clientconfig hwfepre.dat -tcl {}/nonDesign.tcl'.format(path_hw, path))
-    #subprocess.run('{}/hm/bin/win64/hmbatch.exe -tcl {}/nonDesign.tcl'.format(path_hw, path)) 
-    #subprocess.call('{}/hm/bin/win64/hmopengl.exe -batchmesher -noconsole -tcl {}/nonDesign.tcl'.format(path_hw, path))
-    #subprocess.run('{}/hm/bin/win64/hmopengl.exe -batchmesher -noconsole -tcl {}/nonDesign.tcl'.format(path_hw, path))
+    subprocess.call('{}/hw/bin/win64/hw.exe /clientconfig hwfepre.dat -tcl {}/makro.tcl'.format(path_hw, path))
+    #subprocess.run('{}/hm/bin/win64/hmbatch.exe -tcl {}/makro.tcl'.format(path_hw, path)) 
+    #subprocess.call('{}/hm/bin/win64/hmopengl.exe -batchmesher -noconsole -tcl {}/makro.tcl'.format(path_hw, path))
+    #subprocess.run('{}/hm/bin/win64/hmopengl.exe -batchmesher -noconsole -tcl {}/makro.tcl'.format(path_hw, path))
     
     t = 0
     while not os.path.exists('{}.html'.format(path_temp)):
