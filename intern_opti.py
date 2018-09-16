@@ -53,7 +53,7 @@ os.makedirs(name_db)
 with open ('{}/{}.csv'.format(name_db, name_db.split('/')[-1]),
            'w', newline = '') as ofile:
 
-        fieldnames = ['Herkunft',
+        fieldnames = ['Algorithm',
                       'Individual',
                       'Objective1 (Nachgiebigkeit)',
                       'Objective2 (Ähnlichkeit)',
@@ -128,7 +128,7 @@ def intern_opti(x):
         writer = csv.DictWriter(ofile,
                             fieldnames = fieldnames)
 
-        writer.writerow({'Herkunft': name_db.split('/')[-1],
+        writer.writerow({'Algorithm': name_db.split('/')[-1],
                          'Individual': '.'.join([str(gen), str(indv)]),
                          'Objective1 (Nachgiebigkeit)': objectives[0],
                          'Objective2 (Ähnlichkeit)': objectives[1],
