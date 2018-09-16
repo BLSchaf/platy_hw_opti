@@ -14,7 +14,7 @@ print(path)
 filename = askopenfilename(initialdir = '{}/__database__'.format(path),
                            title = 'Select *.csv'
                            )
-i = []
+ind = []
 with open ('{0}'.format(filename),
            newline = '') as ifile:
     
@@ -23,7 +23,7 @@ with open ('{0}'.format(filename),
     
     for row in reader:    
         #individuals[Nachgiebigkeit, Ähnlichkeit, Herkunft, Inidividuum, Parameter]
-        i.append([row[0],
+        ind.append([row[0],
                   row[1],
                   float(row[2]),
                   float(row[3]),
@@ -33,35 +33,39 @@ with open ('{0}'.format(filename),
 
 params = []
 p = 4
-for n in range(len(i)):
-    params.append(list(map(int,i[n][4])))
+for n in range(len(ind)):
+    params.append(list(map(int,ind[n][4])))
+
+print(params[0])
+
+makros = []
+for v in params:          
+    makros.append([v[i:i+p] for i in range(0, len(v), p)])
     
-makros = [params[i:i+p] for i in range(0, len(params), p)]
-print(params[0],makros[0])
+print(makros[0])
 
-print(params)
-params_h = []
-params_n = []
-for n in params:
-    if n[0] == 2:
-        params_h.append(n)
-    else:
-        params_n.append(n)
-print(params_h)
+makro_h = []
+makro_n = []
+
+for ind in makros:
+    for makro in ind:
         
-
-
-#plt.axvline(x = 1, linestyle = '--', c = 'black', alpha = 0.5)
-
-x = [r[1] for r in params_h]
-y = [r[2] for r in params_h]
-z = [r[3]**3 for r in params_h]
+        if makro[0] == 2:
+            makro_h.append(makro)
+        else:
+            makro_n.append(makro)
+            
+print (makro_h[0])
+            
+x = [r[1] for r in makro_h]
+y = [r[2] for r in makro_h]
+z = [r[3]**3 for r in makro_h]
 
 plt.scatter(x, y, s=z, alpha=0.4, edgecolor='grey', label = 'hole')
 
-x = [r[1] for r in params_n]
-y = [r[2] for r in params_n]
-z = [r[3]**3 for r in params_n]
+x = [r[1] for r in makro_n]
+y = [r[2] for r in makro_n]
+z = [r[3]**3 for r in makro_n]
 plt.scatter(x, y, s=z, alpha=0.4, edgecolor='grey', label= 'nondesign')
     
 plt.xlim(0, 120)
@@ -70,8 +74,9 @@ plt.ylim(0, 80)
 plt.xlabel('X-Koordinate [mm]')
 plt.ylabel('Y-Koordinate [mm]')
 
-lgnd = plt.legend(loc="lower left", scatterpoints=1, fontsize=10)
+lgnd = plt.legend(loc="best", scatterpoints=1, fontsize=10)
 lgnd.legendHandles[0]._sizes = [60]
 lgnd.legendHandles[1]._sizes = [60]
 
 plt.show()
+    
