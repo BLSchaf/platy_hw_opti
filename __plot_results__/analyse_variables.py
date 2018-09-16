@@ -11,7 +11,7 @@ path = os.getcwd()
 path = path.replace('\\', '/')
 print(path)
     
-filename = askopenfilename(initialdir = '{}/__database__'.format(path),
+filename = askopenfilename(initialdir = '{}/__database__'.format(os.path.dirname(path)),
                            title = 'Select *.csv'
                            )
 ind = []
@@ -78,5 +78,7 @@ lgnd = plt.legend(loc="best", scatterpoints=1, fontsize=10)
 lgnd.legendHandles[0]._sizes = [60]
 lgnd.legendHandles[1]._sizes = [60]
 
+filesave = ('.').join(filename.split('.')[:-1])
+plt.savefig('{0}_position_makro.pdf'.format(filesave),
+            bbox_inches='tight')
 plt.show()
-    
